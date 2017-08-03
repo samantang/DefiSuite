@@ -1,0 +1,1 @@
+<p style="color: green;">Le jeu a bien été publié </p>
