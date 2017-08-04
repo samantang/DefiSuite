@@ -710,16 +710,15 @@ public class SocialController {
 		HttpSession session = req.getSession();
 		Long id =  (Long) session.getAttribute("id");
 //		Long idPost = Long.parseLong(req.getParameter("id"));
-		
 		try {
 			req.setCharacterEncoding("UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("exception capturée");
 		}
 		Friend moi = metier.getFriend(id);
-		
-		metier.posterPost(id, req.getParameter("messagePost"));
+		Post post = new Post(req.getParameter("messagePost"));
+		metier.posterPost(id, req.getParameter("messagePost"), post);
 		
 		sm.setPosts(metier.getPosts());
 	    sm.setComments(metier.getComments());
@@ -741,7 +740,6 @@ public class SocialController {
 		Long id =  (Long) session.getAttribute("id");
 		Long idPost = Long.parseLong(req.getParameter("id"));
 		Friend moi = metier.getFriend(id);
-		System.out.println("l'id du post est "+idPost);
 		
 		metier.aimerPost(id, idPost);
 		

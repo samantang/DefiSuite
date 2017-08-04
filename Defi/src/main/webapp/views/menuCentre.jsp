@@ -36,48 +36,51 @@
 									<div class="jeuxPublies">
 										<p><img alt="" src="photoUser?id=${sm.friendpost.id }" height="30px" width="30px">&nbsp;${sm.friendpost.nom}</p>
 										<p> ${sm.message }</p>
-										<table class="table table-bordered table-striped table-condensed">
-											<thead>
-												<tr>
-													<th>Joueur</th>
-													<th>Aide</th>
-													<th>Temps restant</th>
-													<th>Score Total</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>MOI</td>
-													<td>
-														<c:choose>
-															<c:when test="${sm.aideMoi == true }">
-																OUI
-															</c:when>
-															<c:otherwise>
-																NON
-															</c:otherwise>
-														</c:choose>
-													</td>
-													<td><c:out value="${sm.tempsResantMoi }"/></td>
-													<td><c:out value="${sm.scoreMoi }"/>/<c:out value="${sm.scoreMax }"/></td>
-												</tr>
-												<tr>
-													<td><a href="voirAmi?id=${sm.ami.id}"><c:out value="${sm.ami.nom }"/></a> </td>
-													<td>
-														<c:choose>
-															<c:when test="${sm.aideAmi == true }">
-																OUI
-															</c:when>
-															<c:otherwise>
-																NON
-															</c:otherwise>
-														</c:choose>
-													</td>
-													<td><c:out value="${sm.tempsRestantAmi }"/></td>
-													<td><c:out value="${sm.scoreAmi }"/>/<c:out value="${sm.scoreMax }"/></td>
-												</tr>
-											</tbody>
-										</table>
+										<!-- on affiche le tableau que losrqu'il s'agit des jeux en challenge -->
+										<c:if test="${sm.typePost == 'PENDUDICOCHALLENGE' || sm.typePost == 'PENDUSUJETSCHALLENGE' }">
+											<table class="table table-bordered table-striped table-condensed">
+												<thead>
+													<tr>
+														<th>Joueur</th>
+														<th>Aide</th>
+														<th>Temps restant</th>
+														<th>Score Total</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>MOI</td>
+														<td>
+															<c:choose>
+																<c:when test="${sm.aideMoi == true }">
+																	OUI
+																</c:when>
+																<c:otherwise>
+																	NON
+																</c:otherwise>
+															</c:choose>
+														</td>
+														<td><c:out value="${sm.tempsResantMoi }"/></td>
+														<td><c:out value="${sm.scoreMoi }"/>/<c:out value="${sm.scoreMax }"/></td>
+													</tr>
+													<tr>
+														<td><a href="voirAmi?id=${sm.ami.id}"><c:out value="${sm.ami.nom }"/></a> </td>
+														<td>
+															<c:choose>
+																<c:when test="${sm.aideAmi == true }">
+																	OUI
+																</c:when>
+																<c:otherwise>
+																	NON
+																</c:otherwise>
+															</c:choose>
+														</td>
+														<td><c:out value="${sm.tempsRestantAmi }"/></td>
+														<td><c:out value="${sm.scoreAmi }"/>/<c:out value="${sm.scoreMax }"/></td>
+													</tr>
+												</tbody>
+											</table>
+										</c:if>	
 										<p> ${sm.date }</p>
 										 <!-- si j'ai pas encore aimé ce poste on affiche "aimer", sinon on affiche "ne plus aimer" -->
 											<a href="aimerPost?id=${sm.id }">aimer</a> &nbsp;&nbsp;
@@ -139,8 +142,6 @@
 							</c:choose>			
 						</c:forEach>
 					</div>
-					<div>
-						<p><a href="penduSoloDico">testRest</a> </p>
-					</div>	
+						
 	</body>
 </html>

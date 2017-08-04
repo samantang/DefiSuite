@@ -236,7 +236,7 @@ public class SoloAbcController {
 				String email = (String) session.getAttribute("email");
 				Character lettre =  (Character) session.getAttribute("lettre");
 				String date = null;
-				int time =0; // le temps qu'a dur� le jeux
+				int time =0; // le temps qui reste a la fin du jeu
 				String help = "no"; // si l'utlisateur a demand� de l'aide
 				int score = 0;
 				int scorePossible =0;
@@ -551,16 +551,12 @@ public class SoloAbcController {
 		
 //					insertion dans la base de donn�es =========================
 					AbcSoloJeux solojeu = new AbcSoloJeux(email, score, sdf.format(new Date()), lettre, time, aidePays,scorePossible, choixAgglo, choixAPresidents, choixPresidents, choixAnimaux, choixArtistes,
-					choixCapitales, choixPays, choixNobels, choixVilles, time);
+					choixCapitales, choixPays, choixNobels, choixVilles, time, request.getParameter("tempsRestant"));
 					AbcSolo solo= new AbcSolo();
 					
 //					recup�ration de l'id de l'utilisateur
 					Long id =  (Long) session.getAttribute("id");
 										
-//					Friend moi = new Friend();
-//					moi=metier.getFriendByEmail(email);
-//					Long id = moi.getId(); // c'est celui-ci qu'on doit mettre dans la m�thode qui suit quand les inscriptions seront bien faites
-					
 					metier.saveAbcSolo(id, solo, solojeu);
 					
 					model.addAttribute("id", id);
@@ -640,30 +636,12 @@ public class SoloAbcController {
 	}
 	@RequestMapping(value="publierSolo")
 	public String publierSolo(Model model, GameModel gm, HttpServletRequest request, SocialModel sm){
-		Long idSolo = Long.parseLong(request.getParameter("id"));
+		Long idSolo = Long.parseLong(request.getParameter("idSolo"));
 		HttpSession session = request.getSession();
 		Long id =  (Long) session.getAttribute("id");
 		metier.pubierSolo(idSolo, id);
 		
-		
-		Friend moi = metier.getFriend(id);		
-		List<AbcSolo> mesSolos = metier.getMesSolos(id);
-		gm.setMesSolos(metier.getMesSolos(id));
-		
-//	    recup�ration des derniers jeux
-	   List<AbcChallenge> mesChallenges= metier.mesDerniersChallenges(id);
-	    
-	    model.addAttribute("mesChallenges", mesChallenges);
-	    model.addAttribute("mesSolos", mesSolos);
-		
-
-	    model.addAttribute("moi", moi);
-		model.addAttribute("sm", sm);
-		model.addAttribute("gm", gm);
-		
-		
-		model.addAttribute("id", id);
-		return "abcSoloHome";
+		return "infoPublicationSolo";
 		
 	}
 	@RequestMapping(value="challengerAmi")

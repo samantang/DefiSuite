@@ -85,6 +85,7 @@ td, th, tr input {
 							
 							<f:form modelAttribute="gm"  action="abcSoloCorrection" >
 									 <!-- <div class="container"> --> 
+									 	<input class="tempsRestant" type="hidden" value="oo" name="tempsRestant">
 										<input class="valeuraidepays" type="hidden" value="non" name="valeuraidepays">
 								 		<c:if test="${not empty listPays }"> 
 								 			<!-- <div class="panel panel-default" style=" width: auto;">
@@ -511,7 +512,7 @@ td, th, tr input {
 								 		</c:if>
 								 	 <!-- </div> -->
 								 	  
-								 		<input style="width: 80; height: 50;" class="btn btn-success" type="submit" value="Valider">
+								 		<button style="width: 130; height: 50;" class="btn btn-success ValiderSolos" id="soumettre" name="soumettre" value="Tout Valider" >Soumettre</button>
 								 	
 									</f:form>
 								</div>
@@ -578,6 +579,12 @@ td, th, tr input {
 					
 				});
 			});
+			$('.ValiderSolos')
+				.click(function(){
+					var temps ='='+$('#time').text()+'';
+					$('.tempsRestant').val(temps);
+					document.soumettre.submit();
+				})
     </script>	
     <!-- pour l'affichage et la disparition de l'aide ====================================================================  -->
 	      <script>

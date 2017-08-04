@@ -41,6 +41,7 @@ public class AbcSolo implements Serializable{
 	@OneToOne
 //	(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private AbcSoloJeux abcsolojeux;
+	private boolean publie;
 	
 	
 	
@@ -48,6 +49,12 @@ public class AbcSolo implements Serializable{
 	
 	
 	
+	public boolean isPublie() {
+		return publie;
+	}
+	public void setPublie(boolean publie) {
+		this.publie = publie;
+	}
 	/**
 	 * @return the scoreMax
 	 */

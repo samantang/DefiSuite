@@ -83,7 +83,7 @@
 						</div>
 					</div>
 				</f:form>
-			</div>emailEnvoye
+			</div>
 			<div style="color: red; margin-left: 55px; margin-bottom: 10px;"><c:out value="${emailInexistant }"/></div>
 			<div style="color: green; margin-left: 55px; margin-bottom: 10px;"><strong><c:out value="${emailInexistant }"/></strong></div>
 		</div>

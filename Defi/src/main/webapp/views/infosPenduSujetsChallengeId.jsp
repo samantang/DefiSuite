@@ -180,7 +180,6 @@
 	function publierUnChallengeSujet(lui, id){
 		lui.disabled='true';
 		var param = 'idSolo='+id+'';
-	//	alert(id);
 		$("#infoPublicationChallengeSujet").load("infoPublicationChallengeSujet", param);
 	}
 	

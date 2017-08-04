@@ -61,6 +61,8 @@ public class AbcSoloJeux implements Serializable{
 	private int timeOut ;
 	@OneToOne
 	private AbcSolo solo;
+	private boolean publie;
+	private String tempsRestant;
 	
 	
 	
@@ -109,6 +111,24 @@ public class AbcSoloJeux implements Serializable{
 		this.ville = ville;
 		this.timeOut = timeOut;
 	}
+	
+	public boolean isPublie() {
+		return publie;
+	}
+
+	public void setPublie(boolean publie) {
+		this.publie = publie;
+	}
+	
+
+	public String getTempsRestant() {
+		return tempsRestant;
+	}
+
+	public void setTempsRestant(String tempsRestant) {
+		this.tempsRestant = tempsRestant;
+	}
+
 	/**
 	 * @return the scoreMax
 	 */
@@ -510,13 +530,14 @@ public class AbcSoloJeux implements Serializable{
 	 * @param nobel
 	 * @param ville
 	 * @param timeOut
+	 * @param tempsRestant
 	 */
 	public AbcSoloJeux(String email, int score, String datestring,
 			Character lettrechar, int time, String help, int scoreMax,
 			List<String> agglo, List<String> aPresident,
 			List<String> president, List<String> animal, List<String> artiste,
 			List<String> capitale, List<String> pays, List<String> nobel,
-			List<String> ville, int timeOut) {
+			List<String> ville, int timeOut, String tempsRestant) {
 		super();
 		this.email = email;
 		this.score = score;
@@ -535,6 +556,7 @@ public class AbcSoloJeux implements Serializable{
 		this.nobel = nobel;
 		this.ville = ville;
 		this.timeOut = timeOut;
+		this.tempsRestant = tempsRestant;
 	}
 	
 	

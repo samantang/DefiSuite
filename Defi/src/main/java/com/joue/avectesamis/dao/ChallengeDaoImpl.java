@@ -189,6 +189,7 @@ public class ChallengeDaoImpl implements ChallengeDao {
 		 em.persist(p);
 		 moi.getPosts().add(p);
 		 p.setFriendpost(moi);
+		 p.setDate(new Date());
 		 em.persist(p);
 		 em.persist(moi);
 
@@ -814,18 +815,17 @@ public class ChallengeDaoImpl implements ChallengeDao {
 		}else {
 			aide = "sans aide";
 		}
+		soloJeu.setPublie(true);
 		String lettre = soloJeu.getLettre();
 		char lettreChar = soloJeu.getLettrechar();
 		int score = soloJeu.getScore();
 		int scoreMax = soloJeu.getScoreMax();
 		
-		DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Date now = new Date();
-		
+		DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		Date now = new Date();		
 		
 		String message = " "+sdf.format(now)+", avec la lettre "+lettreChar+" j'ai eu un score de "+score+" sur "+scoreMax+" possible "+aide+"";
-		
-		
+				
 		Post post = new Post(message, now, true);
 		Friend moi = em.find(Friend.class, m);
 		em.persist(post);
@@ -836,6 +836,7 @@ public class ChallengeDaoImpl implements ChallengeDao {
 		moi.getPosts().add(postAgain);
 		em.merge(postAgain);
 		em.merge(moi);
+		em.merge(soloJeu);
 	}
 
 
