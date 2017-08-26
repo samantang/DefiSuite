@@ -351,6 +351,14 @@ public Post(String message, boolean jeu) {
 	}
 
 
+	public Post(Date date2, String messagePost, boolean b) {
+		// TODO Auto-generated constructor stub
+		this.date = date2;
+		this.message = messagePost;
+		this.jeu = b;
+	}
+
+
 	/**
 	 * @param id the id to set
 	 */

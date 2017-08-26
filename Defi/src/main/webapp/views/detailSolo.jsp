@@ -31,6 +31,7 @@
   <button type="button" class="close quitterInfosDicoSolo" data-dismiss="modal">&times;</button>
     <h2 style="text-align: center; color: navy; text-shadow: 2px 2px 4px #000000;  ">DETAILS DE VOTRE JEU ABC SOLO</h2>
   	<button class="btn-success quitterInfosDicoSolo">QUITTER</button>
+  	<div id=infoPublicationSolo style="text-align: center;"></div>
 </div>
 <div class="modal-body">
   <div>
@@ -72,14 +73,27 @@
 												${solo.abcsolojeux.help}<br>
 											<%-- </c:forEach> --%>
 										</td>
-										<td>${solo.time }</td>
+										<td>${solo.abcsolojeux.tempsRestant }</td>
 										<td>
 											<%-- <c:forEach items="${solo.abcsolojeux}" var="agglo"> --%>
 												${solo.abcsolojeux.score}/${solo.abcsolojeux.scoreMax}<br>
 											<%-- </c:forEach> --%>
 										</td>
-										<td><a href="publierSolo?id=${solo.id}">pub</a></td>
-										<td><a href="suprimerSolo?id=${solo.id}">sup</a></td>
+										<td>
+											<c:choose>
+												<c:when test="${solo.abcsolojeux.publie == true}">
+													<button class="btn btn-danger" >
+											        	<span class="glyphicon glyphicon-ban-circle"></span>
+											     	</button>
+												</c:when>
+												<c:otherwise>
+													<button  onclick="publierSolo(this,${solo.id} )" class="btn btn-primary" >
+											        	<span class="glyphicon glyphicon-share"></span>
+											     	</button>
+												</c:otherwise>
+											</c:choose>
+										</td>
+										<td>---</td>
 										<td>
 											<c:forEach items="${solo.abcsolojeux.agglo}" var="agglo">
 												${agglo}<br>
@@ -133,6 +147,13 @@
 						location = 'http://localhost:8080/abcSoloHome';
 					})
 				}); 
+				function publierSolo(lui, id){
+					lui.disabled='true';
+					var param = 'idSolo='+id+'';
+					$("#infoPublicationSolo").load("publierSolo", param);
+					lui.removeClass('btn-primary').addClass('btn-danger');
+				}
+
 				</script>
 </body>
 </html>

@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet">
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
@@ -40,7 +42,7 @@
 		</div>
 <div class="modal-body">
   <div>
-						<table class="table table-bordered table-striped table-condensed">
+						<table id="tableauDataTable" class="table table-bordered table-striped table-condensed">
 							<thead>
 								<tr class="success">
 									<th rowspan="2">Joueur</th>
@@ -185,7 +187,36 @@
 	//	alert(id);
 		$("#infoPublicationChallengeSujet").load("infoPublicationChallengeSujet", param);
 	}
-	
+	/*  pour la datatable */
+$(document).ready(function() {
+  $('#tableauDataTable').DataTable({
+  	"language": {
+  		"sProcessing": "Traitement en cours...",
+  		"sSearch": "Rechercher&nbsp;:",
+  		"sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
+  		"sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+  		"sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+  		"sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+  		"sInfoPostFix": "",
+  		"sLoadingRecords": "Chargement en cours...",
+  		"sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+  		"sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
+  		"oPaginate": {
+  		"sFirst": "Premier",
+  		"sPrevious": "Pr&eacute;c&eacute;dent",
+  		"sNext": "Suivant",
+  		"sLast": "Dernier"
+  		},
+  		"oAria": {
+  		"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+  		"sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+  		}
+  		}
+  });
+  
+} );
 </script>
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>

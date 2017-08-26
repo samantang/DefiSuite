@@ -59,6 +59,7 @@ public class PenduSoloDicoControlleur {
 		
 		penduModel.setMesDicoSolo(penduDao.mesDicoSolos(id));
 	    model.addAttribute("penduModel", penduModel);
+	    model.addAttribute("moi", moi);
 
 		return "penduSoloDico";
 		
@@ -85,6 +86,7 @@ public class PenduSoloDicoControlleur {
 		
 		HttpSession session = request.getSession();
 		Long id = (Long) session.getAttribute("id"); 
+		Friend moi = metier.getFriend(id);
 //		à partir du mot tiré au sort, on choisit une lettre qui sera affichée pour guider le joueur
 		String motComplet = word.getWord();
 		int longueurMot = motComplet.length();
@@ -95,13 +97,12 @@ public class PenduSoloDicoControlleur {
 		session.setAttribute("motComplet", motComplet);
 		session.setAttribute("lettreString", lettreString);
 		session.setAttribute("lettreString", lettreString);
-		
-		System.out.println("le mot: "+word.getWord());
-					
+							
 					model.addAttribute("longueurMot", longueurMot);
 					model.addAttribute("lettreDevoilee", lettreDevoilee);
 					model.addAttribute("penduModel", penduModel);
-					model.addAttribute("word", word);				
+					model.addAttribute("word", word);
+					model.addAttribute("moi", moi);
 		
 		return "penduSoloDicoJeu";
 		
@@ -220,7 +221,7 @@ public class PenduSoloDicoControlleur {
 		}
 		else if(nbErreursInt == 5){
 			System.out.println("le nombre d'erreurs est de cinq ==============");
-			PenduDicoSolo solo = new PenduDicoSolo(now, dateString, lettreDevoilee, true, motComplet);
+			PenduDicoSolo solo = new PenduDicoSolo(now, dateString, lettreDevoilee, true, motComplet , nbErreursInt, points, pointsMax);
 			penduDao.savePenduDicoSolo(solo, id);
 		}else {
 			PenduDicoSolo penduDicoSolo = new PenduDicoSolo(now, dateString, lettreDevoilee, null, tempsRestant, motComplet, null, nbErreursInt, points, pointsMax);

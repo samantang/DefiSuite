@@ -632,7 +632,7 @@ public class SoloAbcController {
 		model.addAttribute("id", idMoi);
 		
 		return "abcSoloHome";
-		
+		 
 	}
 	@RequestMapping(value="publierSolo")
 	public String publierSolo(Model model, GameModel gm, HttpServletRequest request, SocialModel sm){

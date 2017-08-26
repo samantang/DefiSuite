@@ -29,7 +29,7 @@
 										<th>Aide</th>
 									</tr>
 								
-									<c:forEach items="${sessionScope.mesSolos}" var="solo" begin="0" end="${tailleSolos }">
+									<c:forEach items="${sessionScope.mesSolos}" var="solo" begin="0" end="9">
 										<tr>
 											<td><c:out value="${solo.abcsolojeux.datestring}"></c:out></td>
 										

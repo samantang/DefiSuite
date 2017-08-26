@@ -40,31 +40,15 @@
 	     
 		<div class="row">
 			<div class="col-md-3 col-lg-3">
-				<c:choose>
-					<c:when test="${moi.nomPhoto == null}">
-						<img height="50px" width="50px" src="<%=request.getContextPath()%>/resources/images/user.png" alt="">
-						<p>Ajouter de photo de profil </p>
-						<f:form action="changerPhoto" method="POST" enctype="multipart/form-data" modelAttribute="sm">
-							<input type="file" name="file">
-							<input type="submit" value="changer">
-						</f:form>
-					</c:when>
-					<c:otherwise>
-						<a href="userhome"><img src="photoUser?id=${id }" height="80px" width="80px"/></a>
-					</c:otherwise>
-				</c:choose>
 				<div>
 					<div class="menuGauche">
 						<c:import url="menuGauche.jsp"></c:import>
 					</div>
-					<%-- <%@include file="menuGauche.jsp" %> --%>	
-				</div>	
+				</div>		
 			</div>
 			<div class="col-md-6 col-lg-6">
 				<div align="center">
 					<h2 style="text-align: center; color: navy; text-shadow: 2px 2px 4px #000000;  ">JEU ABC SOLO</h2>
-				
-				
 				<div>
 					<div>
 						<ul class="list-group">
@@ -149,7 +133,7 @@
 												<td>${solo.abcsolojeux.datestring }</td>
 												<td>${solo.abcsolojeux.lettrechar }</td>
 												<td>${solo.abcsolojeux.help }</td>
-												<td>${solo.abcsolojeux.time }</td>
+												<td>${solo.abcsolojeux.tempsRestant }</td>
 												<td>${solo.abcsolojeux.score }/${solo.abcsolojeux.scoreMax }</td>
 												<%-- <td><a href="publierSolo?id=${solo.abcsolojeux.id}">pubier</a></td> --%>
 												<%-- <td><a href="supprimerSolo?id=${solo.id}">Sup</a></td> --%>

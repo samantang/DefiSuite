@@ -71,7 +71,7 @@
 											<td><c:out value="${pendu.score }"></c:out>/<c:out value="${pendu.scoreMax }"></c:out></td>
 											<td><c:out value="${pendu.tempsRestantMoi }"></c:out></td>
 											<td><c:out value="${pendu.nbErreurs }"></c:out></td>
-											<td><a href="voirAmi?id=${pendu.monFriend.id }"><c:out value="${pendu.monFriend.nom }"/>&nbsp;<c:out value="${pendu.monFriend.prenom }"/></a></td>
+											<td><a href="amiProfile?id=${pendu.monFriend.id }"><c:out value="${pendu.monFriend.nom }"/>&nbsp;<c:out value="${pendu.monFriend.prenom }"/></a></td>
 											<c:choose>
 												<c:when test="${pendu.dateStringAmi == null }">
 													<td>pas joué</td>

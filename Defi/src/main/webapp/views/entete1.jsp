@@ -31,7 +31,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="#" class="navbar-brand">Challenge-Friend</a>
+        <a href="#" class="navbar-brand"><img class="img-responsive" height="50px" width="100px" src="<%=request.getContextPath()%>/resources/images/logoDefi.PNG" alt="logo"></a>
       </div>
       <c:choose>
       	<c:when test="${empty sessionScope.id }">

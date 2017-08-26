@@ -85,7 +85,7 @@
 				</f:form>
 			</div>
 			<div style="color: red; margin-left: 55px; margin-bottom: 10px;"><c:out value="${emailInexistant }"/></div>
-			<div style="color: green; margin-left: 55px; margin-bottom: 10px;"><strong><c:out value="${emailInexistant }"/></strong></div>
+			<div style="color: green; margin-left: 55px; margin-bottom: 10px;"><strong><c:out value="${emailEnvoye }"/></strong></div>
 		</div>
 	</div>
 	  <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/bootstrapValidator.min.js"></script>   

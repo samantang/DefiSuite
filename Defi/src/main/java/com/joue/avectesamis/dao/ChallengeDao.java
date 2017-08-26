@@ -125,6 +125,8 @@ public interface ChallengeDao {
 	public Friend getMotDePasse(String email);
 	public Friend mailExiste(String email);
 	public void changerMdp(String email, String string);
+	public void annulerEnvoiDemandeAmi(Long id, Long idAmi);
+	public void refuserDemandeAmi(Long id, Long idAmi);
 	
 
 }

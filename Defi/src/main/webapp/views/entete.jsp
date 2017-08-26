@@ -30,7 +30,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="#" class="navbar-brand">Challenge-Friend</a>
+        <a href="#" class="navbar-brand"><img class="img-responsive" height="50px" width="100px" src="<%=request.getContextPath()%>/resources/images/logoDefi.PNG" alt="logo"></a>
       </div>
       		<div class="collapse navbar-collapse">
       				<ul class="nav navbar-nav navbar-right">
@@ -59,16 +59,14 @@
   
    <div class="container">
   	<div class="row">
-  		<div class="col-sm-3 col-md-4 "><div style="position: fixed; z-index: 3; margin-top: 55px" id="suggestion"></div></div>
+  		<div class="col-sm-3 col-md-4 "><div style="position: fixed; z-index: 3; margin-top: 55px; margin-left: 100px; " id="suggestion"></div></div>
   		<div class="col-sm-3 col-md-4 "></div>
   		<div class="col-sm-3 col-md-3 ">
-  			<!-- <div id="challengesAaccepter" style="position: fixed;z-index: 1;"></div> -->
   			<div id="challengesAJouer" style="position: fixed; z-index: 1;"></div>
   		</div>
   		<div class="col-sm-3 col-md-1 "></div>
   	</div>
   </div> 
-  <!-- <div id="challengesAJouer" style="position: fixed;z-index: 1;"></div> --> 
   <div id="challengesAaccepter" style="position: fixed;z-index: 2;"></div>  
 
   
@@ -179,7 +177,7 @@
 		                            {
 		    
 		                                //document.getElementById('suggestion').style="border:2px solid black";
-		                                document.getElementById('suggestion').style.backgroundColor="#FFFBF0";
+		                                document.getElementById('suggestion').style.backgroundColor="#B0C4DE";
 		                                document.getElementById('suggestion').style.border="1px solid grey";
 		                                document.getElementById('suggestion').style.borderTop="none";
 		                                document.getElementById('suggestion').style.borderRadius="6px";

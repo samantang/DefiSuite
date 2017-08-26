@@ -47,19 +47,6 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3 col-lg-3 menuGaucheFixe">
-				<c:choose>
-					<c:when test="${moi.nomPhoto == null}">
-						<img height="50px" width="50px" src="<%=request.getContextPath()%>/resources/images/user.png" alt="">
-						<p>Ajouter de photo de profil </p>
-						<f:form action="changerPhoto" method="POST" enctype="multipart/form-data" modelAttribute="sm">
-							<input type="file" name="file">
-							<input type="submit" value="changer">
-						</f:form>
-					</c:when>
-					<c:otherwise>
-						<a href="user_profile"><img src="photoUser?id=${id }" height="80px" width="80px"/></a>
-					</c:otherwise>
-				</c:choose>
 					<div class="menuGauche">
 						<c:import url="menuGauche.jsp"></c:import>
 					</div>	

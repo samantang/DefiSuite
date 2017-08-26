@@ -10,19 +10,19 @@
 			<img height="50px" width="50px" src="<%=request.getContextPath()%>/resources/images/user.png" alt="">
 		</div>
 		<div id="image1">
-			<img height="50px" width="50px" src="<%=request.getContextPath()%>/resources/images/user.png" alt="">
+			<img height="179px" width="169px" src="<%=request.getContextPath()%>/resources/images/pendu1.PNG" alt="">
 		</div>
 		<div id="image2">
-			<img height="50px" width="50px" src="<%=request.getContextPath()%>/resources/images/about-bg.jpg" alt="">
+			<img height="179px" width="169px" src="<%=request.getContextPath()%>/resources/images/pendu2.png" alt="">
 		</div>
 		<div id="image3">
-			<img height="50px" width="50px" src="<%=request.getContextPath()%>/resources/images/twitter-bg.jpg" alt="">
+			<img height="179px" width="169px" src="<%=request.getContextPath()%>/resources/images/pendu3.png" alt="">
 		</div>
 		<div id="image4">
-			<img height="50px" width="50px" src="<%=request.getContextPath()%>/resources/images/contact-bg.jpg" alt="">
+			<img height="179px" width="169px" src="<%=request.getContextPath()%>/resources/images/pendu4.png" alt="">
 		</div>
 		<div id="image5">
-			<img height="50px" width="50px" src="<%=request.getContextPath()%>/resources/images/user.png" alt="">
+			<img height="179px" width="169px" src="<%=request.getContextPath()%>/resources/images/pendu5.png" alt="">
 		</div>
 		<div id="imageGagnant">
 			<img height="50px" width="50px" src="<%=request.getContextPath()%>/resources/images/user.png" alt="">

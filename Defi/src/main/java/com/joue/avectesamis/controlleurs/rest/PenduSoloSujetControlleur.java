@@ -55,6 +55,7 @@ public class PenduSoloSujetControlleur {
 //		recuperation de tous mes soloSujets
 		penduModel.setMesSujetsoSolo(penduDao.mesSujetsSolos(id));	 
 		
+		model.addAttribute("moi", moi);
 		return "pendusoloSujets";
 	}
 	
@@ -1177,13 +1178,13 @@ public class PenduSoloSujetControlleur {
 			return "infoPubSoloDejaPublie";
 		}
 //		le message du post
-		String messagePost = ""+sujetSolo.getDateString()+" a joué un soloSujets avec les mots suivants:  "+sujetSolo.getMotPays()+", "+sujetSolo.getMotCapitale()+", "+sujetSolo.getMotPresident()+", "+sujetSolo.getMotNobel()+", "+sujetSolo.getMotArtiste()+ " . J'ai eu au total"
+		String messagePost = ""+sujetSolo.getDateString()+" j'ai joué un SOLO-SUJETS avec les mots suivants:  "+sujetSolo.getMotPays()+", "+sujetSolo.getMotCapitale()+", "+sujetSolo.getMotPresident()+", "+sujetSolo.getMotNobel()+", "+sujetSolo.getMotArtiste()+ " . J'ai eu au total"
 				+ " "+sujetSolo.getScore()+"/"+sujetSolo.getScoreMax()+" Points";		
 
 		
-		Post post = new Post(new Date(), messagePost, true, TypePost.PENDUSUJETSOLO);		
+		Post post = new Post(new Date(), messagePost, true);		
 		
-		metier.posterPost(id, messagePost);
+		metier.posterPost(id, messagePost, post);
 		
 		penduDao.mettreAjourSujetSolo(idSolo);
 		

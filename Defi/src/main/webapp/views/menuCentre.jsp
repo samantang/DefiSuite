@@ -22,10 +22,10 @@
 </style>
 </head>
 	<body>
-		<strong style="margin: 10px; padding: 10px;">Exprimez vous librement</strong><br><br>
+					<h3><strong style="margin: 10px; padding: 10px;color: #CCCCFF ">Exprimez vous librement</strong></h3>
 					<f:form method="post" modelAttribute="sm" action="posterPost" enctype="UTF-8" acceptCharset="UTF-8">
-						<f:textarea rows="4" cols="65"  path="messagePost" name="messagePost"  placeholder="Quoi de nouveau aujourd'hui encore ..., n'hésitez à vous exprimer et de dire tout ce qui peut amuser vos amis "/>
-						<input type="submit" value="Publier">
+						<f:textarea rows="3" cols="65" id="textPublication"  path="messagePost" name="messagePost"  placeholder="Quoi de nouveau aujourd'hui encore ..., n'hésitez à vous exprimer et de dire tout ce qui peut amuser vos amis " /><br>
+						<input class="btn btn-success" id="publierPost" type="submit" value="Publier" style="margin-top: 10px">
 					</f:form ><br>
 					<div class="post" style="text-align: left;"><strong>Les posts publiés par les membres</strong></div>
 					<div class="jeuxPublies" style="text-align: left;"><strong>Les jeux publiés par les membres</strong></div><br>
@@ -34,10 +34,11 @@
 							<c:choose>
 								<c:when test="${sm.jeu == true}">
 									<div class="jeuxPublies">
-										<p><img alt="" src="photoUser?id=${sm.friendpost.id }" height="30px" width="30px">&nbsp;${sm.friendpost.nom}</p>
+										<p><img alt="" src="photoUser?id=${sm.friendpost.id }" height="30px" width="30px">&nbsp;<a href="amiProfile?id=${sm.friendpost.id }"><c:out value="${sm.friendpost.nom}"/> &nbsp; <c:out value="${sm.friendpost.prenom}"/></a></p>
 										<p> ${sm.message }</p>
 										<!-- on affiche le tableau que losrqu'il s'agit des jeux en challenge -->
-										<c:if test="${sm.typePost == 'PENDUDICOCHALLENGE' || sm.typePost == 'PENDUSUJETSCHALLENGE' }">
+										<!-- le mieux c'est de tester si le typePost est un challenge genre sm.typePost == PENDUSUJETSCHALLENGE or sm.typePost == ABCCHALLENGE  mais ça ne marche pas -->
+										<c:if test="${not empty sm.typePost }">
 											<table class="table table-bordered table-striped table-condensed">
 												<thead>
 													<tr>
@@ -64,7 +65,7 @@
 														<td><c:out value="${sm.scoreMoi }"/>/<c:out value="${sm.scoreMax }"/></td>
 													</tr>
 													<tr>
-														<td><a href="voirAmi?id=${sm.ami.id}"><c:out value="${sm.ami.nom }"/></a> </td>
+														<td><a href="amiProfile?id=${sm.ami.id}"><c:out value="${sm.ami.nom }"/></a> </td>
 														<td>
 															<c:choose>
 																<c:when test="${sm.aideAmi == true }">
@@ -86,22 +87,19 @@
 											<a href="aimerPost?id=${sm.id }">aimer</a> &nbsp;&nbsp;
 											<a href="neplusAimerPost?id=${sm.id }"> ne plus aimer</a><br>
 											<a href="quiAimePost?id=${sm.id }">${sm.nbLikesPost} personnes aimment ça</a><br><br>
-											<c:forEach items="${sm.comments }" var="com">
-													<c:forEach items="${com.friends }" var="fr">
-														<p><img alt="" src="photoUser?id=${fr.id }" height="30px" width="30px">  &nbsp; <strong>${fr.nom }&nbsp; ${fr.prenom }</strong></p>
+												<div style="text-align: left;"><hr>
+													<c:forEach items="${sm.comments }" var="com">
+															<c:forEach items="${com.friends }" var="fr">
+																<p><img alt="" src="photoUser?id=${fr.id }" height="30px" width="30px">  &nbsp; <strong>${fr.nom }&nbsp; ${fr.prenom }</strong></p>
+															</c:forEach>
+															<p> &nbsp; &nbsp; &nbsp; ${com.commentaire }</p><hr>
 													</c:forEach>
-													<p> &nbsp; &nbsp; &nbsp; ${com.commentaire }</p><br>
-											</c:forEach>
-											<f:form modelAttribute="sm" action="commenterPost">
-												<f:textarea path="commentaire"  placeholder=" votre commentaire ..." />
-												<f:input path="idPost" type="hidden" value="${sm.id }" />
-												<input type="submit" value="commenter">
-											</f:form>	
-											<p id="idcommentaire"></p><br>
-												<c:forEach items="${sm.comments }" var="com">
-													<p><strong> ${com.friends }</strong></p>
-													<strong>le commentaire: ${com.commentaire }</strong><br><br><hr>
-												</c:forEach>
+													<f:form modelAttribute="sm" action="commenterPost">
+														<f:textarea path="commentaire"  placeholder=" votre commentaire ..." />
+														<f:input path="idPost" type="hidden" value="${sm.id }" />
+														<input type="submit" value="commenter">
+													</f:form>	
+													</div>	
 										<!-- si je suis un adminstrateur -->
 											<c:if test="${moi.admin == true }">
 												<button  onclick="supprimerPost(this,${sm.id} )" class="btn btn-danger" >
@@ -112,24 +110,26 @@
 								</c:when>
 								<c:otherwise>
 									<div class="post">
-										<p><img alt="" src="photoUser?id=${sm.friendpost.id }" height="30px" width="30px">&nbsp;<strong>${sm.friendpost.prenom}&nbsp;${sm.friendpost.nom}</strong> </p>
+										<p><img alt="" src="photoUser?id=${sm.friendpost.id }" height="30px" width="30px">&nbsp;<strong><a href="amiProfile?id=${sm.friendpost.id }"> ${sm.friendpost.prenom}&nbsp;${sm.friendpost.nom}</a></strong> </p>
 										<p><strong>${sm.message }</strong> </p>
 										<p> ${sm.date }</p>
 											<a href="aimerPost?id=${sm.id }">aimer</a>&nbsp;&nbsp;
 											<a href="neplusAimerPost?id=${sm.id }"> ne plus aimer</a><br>
 											<a href="quiAimePost?id=${sm.id }">${sm.nbLikesPost} personnes aimment ça</a><br><hr>
-											<c:forEach items="${sm.comments }" var="com">
-													<c:forEach items="${com.friends }" var="fr">
-														<p><img alt="" src="photoUser?id=${fr.id }" height="30px" width="30px">  &nbsp; <strong>${fr.nom }&nbsp; ${fr.prenom }</strong></p>
+												<div style="text-align: left;">
+													<c:forEach items="${sm.comments }" var="com">
+															<c:forEach items="${com.friends }" var="fr">
+																<p><img alt="" src="photoUser?id=${fr.id }" height="30px" width="30px">  &nbsp; <strong><a href="amiProfile?id=${fr.id }"> ${fr.nom }&nbsp; ${fr.prenom }</a></strong></p>
+															</c:forEach>
+															<p> &nbsp; &nbsp; &nbsp; ${com.commentaire }</p><hr>
 													</c:forEach>
-													<p> &nbsp; &nbsp; &nbsp; ${com.commentaire }</p><br>
-											</c:forEach>
-											<f:form modelAttribute="sm" action="commenterPost">
-												<f:textarea path="commentaire"  placeholder=" votre commentaire ..." />
-												<f:input path="idPost" type="hidden" value="${sm.id }" />
-												<input type="submit" value="commenter">
-											</f:form>	
-											<p id="idcommentaire"></p><br>
+													<f:form modelAttribute="sm" action="commenterPost">
+														<f:textarea path="commentaire"  placeholder=" votre commentaire ..." />
+														<f:input path="idPost" type="hidden" value="${sm.id }" />
+														<input type="submit" value="commenter">
+													</f:form>	
+													<p id="idcommentaire"></p><br>
+												</div>	
 											<!-- si je suis un adminstrateur -->
 											<c:if test="${moi.admin == true }">
 												<button  onclick="supprimerPost(this,${sm.id} )" class="btn btn-danger" >
@@ -142,6 +142,19 @@
 							</c:choose>			
 						</c:forEach>
 					</div>
-						
+		<script type="text/javascript">
+		$(document).ready(function () {
+			$('#publierPost').prop( "disabled", true );
+			$('#textPublication').keyup(function(){
+				var elem = document.getElementById("publierPost").value;
+		        if(elem.length >= 3){
+		        	$('#publierPost').prop( "disabled", false );
+		        }
+			})
+			
+		});
+		
+		</script>			
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 	</body>
 </html>

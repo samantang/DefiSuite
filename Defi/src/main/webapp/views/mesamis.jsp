@@ -47,19 +47,6 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3 col-lg-3">
-				<c:choose>
-					<c:when test="${moi.nomPhoto == null}">
-						<img height="50px" width="50px" src="<%=request.getContextPath()%>/resources/images/user.png" alt="">
-						<p>Ajouter de photo de profil </p>
-						<f:form action="changerPhoto" method="POST" enctype="multipart/form-data" modelAttribute="sm">
-							<input type="file" name="file">
-							<input type="submit" value="changer">
-						</f:form>
-					</c:when>
-					<c:otherwise>
-						<img src="photoUser?id=${id }" height="80px" width="80px" />
-					</c:otherwise>
-				</c:choose>
 				<div>
 					<div class="menuGauche">
 						<c:import url="menuGauche.jsp"></c:import>
@@ -68,7 +55,65 @@
 			</div>
 			<div class="col-md-6 col-lg-6">
 				<div align="center">
-					
+				<!-- si on a des demandes d'amis ou qu'on a envoyé des demandes qui n'ont pas encore été acceptés, alors on les affiche -->	
+				<div>
+					<c:if test="${not empty demandesAmisRecus }">
+						<div class="accepterDemandeAmi"></div>
+						<div class="refuserDemandeAmi"></div>
+						  <ul class="media-list">
+						    <li class="media thumbnail">
+						      <div class="media-body">
+						        <h4 class="media-heading">VOS DEMANDES D'AMIS RECUES</h4>
+						        <ul>
+									<c:forEach items="${demandesAmisRecus }" var="ami">
+										<li>
+											<c:choose>
+												<c:when test="${ami.nomPhoto == null}">
+													<img height="20px" width="20px" src="<%=request.getContextPath()%>/resources/images/user.png" alt="">
+												</c:when>
+												<c:otherwise>
+													<a href="user_profile"><img src="photoUser?id=${ami.id }" height="20px" width="20px"/></a>
+												</c:otherwise>
+											</c:choose>&nbsp;
+											<c:out value="${ami.nom }"/>&nbsp;<c:out value="${ami.prenom }"/> &nbsp; <button onclick="accepterDemandeAmi(this, ${ami.id})" class="btn btn-success">Accepter</button>&nbsp; <button onclick="refuserDemandeAmi(this, ${ami.id})" class="btn btn-danger">Refuser</button>
+										</li><br>
+									</c:forEach>
+								</ul>
+						      </div>  
+						   </li>
+						 </ul>
+					</c:if>	 
+				</div>
+				<div>
+					<c:if test="${not empty demandesAmisEnvoyees }">
+						<div class="annulerEnvoiDemandeAmi"></div>
+						  <ul class="media-list">
+						    <li class="media thumbnail">
+						      <%-- <a class="pull-left" href="#">
+						        <img class="media-object" src="<%=request.getContextPath()%>/resources/images/user.png" height="50px" width="50px">
+						      </a> --%>
+						      <div class="media-body">
+						        <h4 class="media-heading">VOS DEMANDES D'AMIS ENVOYEES</h4>
+						        <ul>
+									<c:forEach items="${demandesAmisEnvoyees }" var="ami">
+										<li>
+											<c:choose>
+												<c:when test="${ami.nomPhoto == null}">
+													<img height="20px" width="20px" src="<%=request.getContextPath()%>/resources/images/user.png" alt="">
+												</c:when>
+												<c:otherwise>
+													<a href="user_profile"><img src="photoUser?id=${ami.id }" height="20px" width="20px"/></a>
+												</c:otherwise>
+											</c:choose>&nbsp;
+											<c:out value="${ami.nom }"/>&nbsp;<c:out value="${ami.prenom }"/> &nbsp; <button onclick="annulerEnvoiDemandeAmi(this, ${ami.id})" class="btn btn-warning">Annuler</button>
+										</li><br>
+									</c:forEach>
+								</ul>
+						      </div>  
+						   </li>
+						 </ul>
+					</c:if>	 
+				</div>
 				<c:choose>
 					<c:when test=" ${empty amisJeuxModel }">
 						<h2 style="text-align: center; color: white; text-shadow: 2px 2px 4px #000000;  ">VOUS N'AVEZ AUCUN AMI POUR L'INSTANT</h2><br>
@@ -90,7 +135,8 @@
 									<tbody>
 										<c:forEach items="${amisJeuxModel }" var="ami">
 											<tr>
-												<td><a href="voirAmi?id=${ami.id }"><c:out value="${ami.nom }" /> &nbsp; <c:out value="${ami.prenom }" /></a>
+												<td>
+													<a href="amiProfile?id=${ami.id }"><c:out value="${ami.nom }" /> &nbsp; <c:out value="${ami.prenom }" /></a>
 													<!-- si je suis un adminstrateur -->
 													<c:if test="${moi.admin == true }">
 														<button  onclick="supprimerPost(this,${sm.id} )" class="btn btn-danger" >
@@ -643,6 +689,100 @@
 			                         buttons: {
 			                             OUI: function () {
 			                            	 window.location.href = "http://localhost:8080/penduChallengeSujetsJeu?idAmi="+id+"";
+			                                 $(this).dialog("close");
+			                             },
+			                             NON: function () { 
+			                             
+			                                 $(this).dialog("close");
+			                             }
+			                         },
+			                         close: function (event, ui) {
+			                             $(this).remove();
+			                         }
+			                     });
+			     };
+		};
+		/* les fonctions pour les demandes d'amis ------------------------------------------------------------------------------------------------------------------------------------------- */
+		function annulerEnvoiDemandeAmi(lui, id){
+			ConfirmDialog('Voulez vous vraiment annuler ce envoi ');
+
+			 function ConfirmDialog(message){
+			     $('<div></div>').appendTo('body')
+			                     .html('<div><h6>'+message+'?</h6></div>')
+			                     .dialog({
+			                         modal: true, title: 'Annuler demande ami', zIndex: 10000, autoOpen: true,
+			                         width: 'auto', resizable: false,
+			                         buttons: {
+			                             OUI: function () {
+			                            	 lui.disabled='true';
+			                            	 var action ='annulerEnvoiAmi';
+			                            	 var paramId = 'idAmi='+id+'';
+			                            	 var param = 'rechargerTable='+id+' & action='+action+'';
+			                            	 /* ici il faut utiliser un objet pour pouvoir convertir l'id en Long dans le controlleur */
+			                            	 var vari = {idAmi: id, rechargerTable: param, action: 'annulerEnvoiAmi'};
+			                     			 $('.annulerEnvoiDemandeAmi').load('demandesAmis .annulerEnvoiDemandeAmi', vari);			                                 
+			                                 $(this).dialog("close");
+			                             },
+			                             NON: function () { 
+			                             
+			                                 $(this).dialog("close");
+			                             }
+			                         },
+			                         close: function (event, ui) {
+			                             $(this).remove();
+			                         }
+			                     });
+			     };
+		};
+		function accepterDemandeAmi(lui, id){
+			ConfirmDialog('Voulez vous vraiment accepter cette demande ');
+
+			 function ConfirmDialog(message){
+			     $('<div></div>').appendTo('body')
+			                     .html('<div><h6>'+message+'?</h6></div>')
+			                     .dialog({
+			                         modal: true, title: 'Accepter demande ami', zIndex: 10000, autoOpen: true,
+			                         width: 'auto', resizable: false,
+			                         buttons: {
+			                             OUI: function () {
+			                            	 lui.disabled='true';
+			                            	 var action ='accepterDemandeAmi';
+			                            	 var paramId = 'idAmi='+id+'';
+			                            	 var param = 'rechargerTable='+id+' & action='+action+'';
+			                            	 /* ici il faut utiliser un objet pour pouvoir convertir l'id en Long dans le controlleur */
+			                            	 var vari = {idAmi: id, rechargerTable: param, action: 'accepterDemandeAmi'};
+			                     			 $('.accepterDemandeAmi').load('demandesAmis .accepterDemandeAmi', vari);			                                 
+			                                 $(this).dialog("close");
+			                             },
+			                             NON: function () { 
+			                             
+			                                 $(this).dialog("close");
+			                             }
+			                         },
+			                         close: function (event, ui) {
+			                             $(this).remove();
+			                         }
+			                     });
+			     };
+		};
+		function refuserDemandeAmi(lui, id){
+			ConfirmDialog('Voulez vous vraiment refuser cette demande ');
+
+			 function ConfirmDialog(message){
+			     $('<div></div>').appendTo('body')
+			                     .html('<div><h6>'+message+'?</h6></div>')
+			                     .dialog({
+			                         modal: true, title: 'Refuser demande ami', zIndex: 10000, autoOpen: true,
+			                         width: 'auto', resizable: false,
+			                         buttons: {
+			                             OUI: function () {
+			                            	 lui.disabled='true';
+			                            	 var action ='refuserDemandeAmi';
+			                            	 var paramId = 'idAmi='+id+'';
+			                            	 var param = 'rechargerTable='+id+' & action='+action+'';
+			                            	 /* ici il faut utiliser un objet pour pouvoir convertir l'id en Long dans le controlleur */
+			                            	 var vari = {idAmi: id, rechargerTable: param, action: 'refuserDemandeAmi'};
+			                     			 $('.refuserDemandeAmi').load('demandesAmis .refuserDemandeAmi', vari);			                                 
 			                                 $(this).dialog("close");
 			                             },
 			                             NON: function () { 

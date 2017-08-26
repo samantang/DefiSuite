@@ -68,6 +68,7 @@ public class ChallengeAbcController {
 		List<AbcChallenge> mesChallengesJoues = new ArrayList<AbcChallenge>();
 		mesChallengesJoues.addAll(metier.mesChallengesJoues(id));
 		gm.setMesChallengesJoues(metier.mesChallengesJoues(id));
+		model.addAttribute("moi", moi);
 		model.addAttribute("gm", gm);
 		return "abcChallengeHome";		
 	}
@@ -672,11 +673,9 @@ public class ChallengeAbcController {
 			Date now = new Date();
 			String dateString = df.format(now);
 			String message = "le "+dateString+", j'ai joué à un ABC-CHALLENGE contre "+challenge.getMonFriend().getNom()+" "
-					+ ""+challenge.getMonFriend().getPrenom()+"\n"+", les ressultats de ce duel sont: "+"\n"+""
-							+ "SCORE => MOI: "+challenge.getScore()+" LUI: "+challenge.getScoreAmi()+"\n"+""
-									+ "LA LETTRE: "+challenge.getLettre()+"\n"
-											+ "TEMPS RESTANT => MOI "+challenge.getTempsRestant()+", LUI: "+challenge.getTempsRestantAmi();
-			System.out.println(message);
+					+ ""+challenge.getMonFriend().getPrenom()+"\n"+", les ressultats de ce duel sont dans le tableau suivant: "+"\n"+""
+									+ "LA LETTRE était: "+challenge.getLettre()+"\n";
+											
 			Post post = new Post(new Date(), message, true, TypePost.ABCCHALLENGE);
 //			ajout des information du challenge dans le poste pour faciliter l'affichage
 			post.setScoreMax(challenge.getScoreMax());

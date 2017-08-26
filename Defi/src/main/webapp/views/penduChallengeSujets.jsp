@@ -8,10 +8,13 @@
   
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet">
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Abc Challenge</title>
+<title>PENDU SUJETS CHALLENGES</title>
 <style type="text/css">
 .menuGauche ul {
     background: #CCCCFF;
@@ -46,19 +49,6 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3 col-lg-3">
-				<c:choose>
-					<c:when test="${moi.nomPhoto == null}">
-						<img height="50px" width="50px" src="<%=request.getContextPath()%>/resources/images/user.png" alt="">
-						<p>Ajouter de photo de profil </p>
-						<f:form action="changerPhoto" method="POST" enctype="multipart/form-data" modelAttribute="sm">
-							<input type="file" name="file">
-							<input type="submit" value="changer">
-						</f:form>
-					</c:when>
-					<c:otherwise>
-						<a href="user_profile"><img src="photoUser?id=${id }" height="80px" width="80px"/></a>
-					</c:otherwise>
-				</c:choose>
 					<div class="menuGauche">
 						<c:import url="menuGauche.jsp"></c:import>
 					</div>	
@@ -154,16 +144,16 @@
 							      </div>
 							</div><br>
 							<div>
-								<h2 style="text-align: center; color: white; text-shadow: 2px 2px 4px #000000;  ">Vos dix derniers jeux</h2>
+								<h2 style="text-align: center; color: white; text-shadow: 2px 2px 4px #000000;  ">Vos derniers jeux</h2> <br>
 							</div>
-							<table class="table table-bordered table-striped table-condensed" style="text-align: center;">
+							<table id="tableauDataTable" class="table table-bordered table-striped table-condensed" style="text-align: center;">
 								<thead>
-									<tr>
+									<tr class="success">
 										<th colspan="3">Moi</th>
 										<th colspan="4">Ami</th>
 										<th rowspan="2">Détails</th>
 									</tr>
-									<tr>
+									<tr class="danger">
 										<th>Date</th>
 										<th>temps Res</th>
 										<th>Score</th>
@@ -240,9 +230,41 @@
 				  $("#actionEnvoi").load("accepterEtInfosChallengeSujetsRecus .annulerEnvoi", param);
 			  })			  
 		  };
+		  
+		  /*  pour la datatable */
+		  $(document).ready(function() {
+	    $('#tableauDataTable').DataTable({
+	    	"language": {
+	    		"sProcessing": "Traitement en cours...",
+	    		"sSearch": "Rechercher&nbsp;:",
+	    		"sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
+	    		"sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+	    		"sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+	    		"sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+	    		"sInfoPostFix": "",
+	    		"sLoadingRecords": "Chargement en cours...",
+	    		"sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+	    		"sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
+	    		"oPaginate": {
+	    		"sFirst": "Premier",
+	    		"sPrevious": "Pr&eacute;c&eacute;dent",
+	    		"sNext": "Suivant",
+	    		"sLast": "Dernier"
+	    		},
+	    		"oAria": {
+	    		"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+	    		"sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+	    		}
+	    		}
+	    });
+	    
+	} );
 		</script>
 		
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
 
 </body>
 </html>

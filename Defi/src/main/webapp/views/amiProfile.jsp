@@ -54,19 +54,6 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3 col-lg-3 menuGaucheFixe">
-				<c:choose>
-						<c:when test="${moi.nomPhoto == null}">
-							<img height="50px" width="50px" src="<%=request.getContextPath()%>/resources/images/user.png" alt="">
-							<p>Ajouter de photo de profil </p>
-							<f:form action="changerPhoto" method="POST" enctype="multipart/form-data" modelAttribute="sm">
-								<input type="file" name="file">
-								<input type="submit" value="changer">
-							</f:form>
-						</c:when>
-						<c:otherwise>
-							<a href="userhome"><img src="photoUser?id=${moi.id }" height="80px" width="80px"/></a>
-						</c:otherwise>
-				</c:choose>
 				<div>
 					<div class="menuGauche">
 						<c:import url="menuGauche.jsp"></c:import>
@@ -80,13 +67,14 @@
 								</div>
 								<div class="panel-body">
 									<img src="photoUser?id=${idAmi }" height="100" width="100" /><br><br>
+									<div class="envoiDemande"></div>
 									<div>
 										<c:choose>
 											<c:when test="${estAmi == true }">
 												<button class="btn btn-success"> VOUS ETES AMIS</button>
 											</c:when>
 											<c:otherwise>
-												<a class="btn btn-success">Envoyez une demande d'ami</a>
+												<button onclick="envoyerDemande(this, ${ami.id})" class="btn btn-success">Envoyez une demande d'ami</button>
 											</c:otherwise>
 										</c:choose>
 									</div><br>
@@ -121,6 +109,11 @@
      		
      		$('.true').attr("checked", true);
      	});
+     	function envoyerDemande(lui, id){
+     		var param = 'idAmi='+id+'';
+     		lui.disabled='true';
+     		$('.envoiDemande').load('envoiDemandeAmi .envoiDemandeAmi', param);     		
+     	};
 </script>
 <script type="text/javascript">
 /* pour la vadiation du formulaire de changement de mot de passe  */

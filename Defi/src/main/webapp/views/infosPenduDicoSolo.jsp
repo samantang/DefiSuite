@@ -72,7 +72,16 @@
 												</c:otherwise>
 											</c:choose>	
 										</td>
-										<td>${solo.nbErreurs }</td>
+										<td>
+											<c:choose>
+												<c:when test="${solo.timeOut ==true }">
+													<em style="color: red;">5</em>
+												</c:when>
+												<c:otherwise>
+													<c:out value="${solo.nbErreurs }"></c:out>
+												</c:otherwise>
+											</c:choose>	
+										</td>
 										<td>
 											<c:choose>
 												<c:when test="${solo.publie ==true }">

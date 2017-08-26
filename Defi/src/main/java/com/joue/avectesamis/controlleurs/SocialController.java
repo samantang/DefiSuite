@@ -177,6 +177,9 @@ public class SocialController {
 //	    recup�ration des derniers jeux
 	    List<AbcChallenge> mesChallenges= metier.mesDerniersChallenges(idUser);
 	    List<AbcSolo> mesSolos =  metier.getMesSolos(idUser);
+	    for (AbcSolo abcSolo : mesSolos) {
+			System.out.println("liste des mes ABCSOLOS ___________________________________"+abcSolo.getAbcsolojeux().getScore());
+		}
 	    Collection<PenduDicoSolo> mesDicoSolos = penduDao.mesDicoSolos(idUser);
 	    Collection<PenduSujetsSolo> mesSujetsSolos = penduDao.mesSujetsSolos(idUser);
 	    
@@ -514,9 +517,19 @@ public class SocialController {
 		Long id =  (Long) session.getAttribute("id");
 		Friend moi = metier.getFriend(id);
 		sm.setMesAmis((List<Friend>) moi.getFriends());
-		
 		/**
-		 * si les paramettres de l'action de ne sont pas nulles, alors l'utilisateur a surment cliquer sur action dans 'mesamis'
+		 * les demandes d'amis
+		 */
+		if(moi.getRecues() != null){
+			Collection<Friend> demandesAmisRecus = moi.getRecues();
+			model.addAttribute("demandesAmisRecus", demandesAmisRecus);
+		}
+		if (moi.getEnvoyees() != null) {
+			Collection<Friend> demandesAmisEnvoyees	= moi.getEnvoyees();
+			session.setAttribute("demandesAmisEnvoyees", demandesAmisEnvoyees);
+		}
+		/**
+		 * si les paramettres de l'action de ne sont pas nuls, alors l'utilisateur a surement cliquer sur action dans 'mesamis'
 		 * alors on recupere l'action concernée et agir en fonction (challenger, annuler, accepter, ...)
 		 * si tel est le cas alors on appelera la page de chargement de la table à la fin de la methode, juste avant la methode
 		 * qui renvoie à la page 'mesamis'
@@ -703,6 +716,32 @@ public class SocialController {
 		return "mesamis";
 		
 	}
+	@RequestMapping(value="demandesAmis")
+	public String demandesAmis(Model model, SocialModel sm, HttpServletRequest req){
+		HttpSession session = req.getSession();
+		Long id =  (Long) session.getAttribute("id");
+		
+		if (req.getParameter("action")!=null) {
+			Long idAmi = Long.valueOf(req.getParameter("idAmi"));
+			
+			switch (req.getParameter("action")) {
+//			pour les annulations de demandes
+			case "annulerEnvoiAmi":
+				metier.annulerEnvoiDemandeAmi(id, idAmi);
+				break;
+			case "accepterDemandeAmi":
+				metier.accepterAmi(id, idAmi);
+				break;
+			case "refuserDemandeAmi":
+				metier.refuserDemandeAmi(id, idAmi);
+				break;
+			default:
+				break;
+			}
+		}	
+		return "demandesAmis";
+		
+	}
 	// ================================================================debut des methodes pour les posts ======================================
 	
 	@RequestMapping(value="posterPost")
@@ -788,8 +827,7 @@ public class SocialController {
 		sm.setPosts(metier.getPosts());
 	    sm.setComments(metier.getComments());
 	    
-//	    sm.setCommentaire(null);
-	    
+	    sm.setCommentaire(null);
 	    model.addAttribute("sm", sm);
 	    model.addAttribute("id", id);
 	    model.addAttribute("moi", moi);
@@ -1064,7 +1102,6 @@ public class SocialController {
 				model.addAttribute("emailInexistant", "désolé, cet email n'existe pas dans note base de données");
 				return "mdpOublie";
 			}
-				
 //				création d'un mot de passe temporaire pour l'utilisateur, on le crypte, on change celui qui existe ne BDD
 //				et on l'envoie à l'utilisateur =========================================================================================================================================
 				
@@ -1096,11 +1133,12 @@ public class SocialController {
 		        
 				model.addAttribute("emailEnvoye", "Nous venons de vous envoyer un mail avec un mot de passe temporaire"
 						+ "que nous vous invitons à changer après votre connexion sur le site.");
+				
 		}else {
 			return "mdpOublie";
 		}
 		
-		return "index";
+		return "mdpOublie";
 		
 	}
 	private String randomString(int len) {
@@ -1123,5 +1161,14 @@ public class SocialController {
 		
 		return "index";
 		
+	}
+	@RequestMapping(value="envoiDemandeAmi")
+	public String envoiDemandeAmi (Model model ,HttpServletRequest request, SocialModel sm){
+		HttpSession session = request.getSession();
+		Long id =  (Long) session.getAttribute("id");
+		Long idAmi = Long.valueOf(request.getParameter("idAmi"));
+		metier.envoyerDemandeAmi(id, idAmi);
+		
+		return "infosActionPenduDicoChallenge";
 	}
 }

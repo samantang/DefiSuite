@@ -151,6 +151,25 @@ public class PenduDicoSolo implements Serializable{
 		this.timeOut = timeOut;
 		this.mot = mot;
 	}
+	/**
+	 * @param date
+	 * @param dateString
+	 * @param lettreString
+	 * @param timeOut
+	 * @param mot
+	 */
+	public PenduDicoSolo(Date date, String dateString, String lettreString,
+			boolean timeOut, String mot, int nbErreurs, int points, int pointMax) {
+		super();
+		this.date = date;
+		this.dateString = dateString;
+		this.lettreString = lettreString;
+		this.timeOut = timeOut;
+		this.mot = mot;
+		this.nbErreurs = nbErreurs;
+		this.score = points;
+		this.scoreMax = pointMax;
+	}
 
 
 

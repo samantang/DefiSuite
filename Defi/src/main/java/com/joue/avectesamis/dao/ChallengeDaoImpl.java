@@ -115,6 +115,30 @@ public class ChallengeDaoImpl implements ChallengeDao {
 
 	}
 	@Override
+	public void annulerEnvoiDemandeAmi(Long m, Long a) {
+		Friend moi = em.find(Friend.class, m);
+		Friend ami = em.find(Friend.class, a);
+		
+		moi.getEnvoyees().remove(ami);
+		ami.getRecues().remove(moi);
+		
+		em.merge(moi);
+		em.merge(ami);
+		
+	}
+	@Override
+	public void refuserDemandeAmi(Long m, Long a) {
+		Friend moi = em.find(Friend.class, m);
+		Friend ami = em.find(Friend.class, a);
+		
+		moi.getRecues().remove(ami);
+		ami.getEnvoyees().remove(moi);
+		
+		em.merge(moi);
+		em.merge(ami);
+		
+	}
+	@Override
 	public boolean estAmiAvec(Long m, Long a){
 		Friend moi = em.find(Friend.class, m);
 		Friend ami = em.find(Friend.class, a);
@@ -821,10 +845,11 @@ public class ChallengeDaoImpl implements ChallengeDao {
 		int score = soloJeu.getScore();
 		int scoreMax = soloJeu.getScoreMax();
 		
-		DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Date now = new Date();		
 		
-		String message = " "+sdf.format(now)+", avec la lettre "+lettreChar+" j'ai eu un score de "+score+" sur "+scoreMax+" possible "+aide+"";
+		String message = " Le "+sdf.format(now)+", avec la lettre "+lettreChar+" j'ai joué à un ABC-SOLO"
+				+ " et j'ai eu un score de "+score+" sur "+scoreMax+" possible "+aide+"";
 				
 		Post post = new Post(message, now, true);
 		Friend moi = em.find(Friend.class, m);
@@ -1064,16 +1089,18 @@ public class ChallengeDaoImpl implements ChallengeDao {
 
 	@Override
 	public Friend getMotDePasse(String email) {
-		Query query = em.createQuery("select f from Friend f where f.email = "+"'"+email+"%'");
+		Query query = em.createQuery("select f from Friend f where f.email = "+"'"+email+"'");
 		return (Friend) query.getSingleResult();
 	}
 
 
 	@Override
 	public Friend mailExiste(String email) {
-		Query query = em.createQuery("select f from Friend f where f.email = "+"'"+email+"%'");
+		Query query = em.createQuery("select f from Friend f where f.email = "+"'"+email+"'");
+		Friend ami = null;
 		try {
-			return  (Friend) query.getSingleResult();
+			ami =(Friend) query.getSingleResult();
+			return  ami;
 		} catch (NoResultException e) {
 			return null;
 		}
@@ -1082,12 +1109,17 @@ public class ChallengeDaoImpl implements ChallengeDao {
 
 	@Override
 	public void changerMdp(String email, String string) {
-		System.out.println("l'email est ============ "+email);
 		// TODO Auto-generated method stub
 		Query req = em.createQuery("select f from Friend f where f.email='"+email+"' ");
 		Friend friend = (Friend) req.getSingleResult();
 		friend.setMdp(string);
 		em.merge(friend);
 	}
+
+
+	
+
+
+	
 
 }

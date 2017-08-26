@@ -27,9 +27,6 @@
  <!-- BootstrapValidator CSS -->
     <link href="<%=request.getContextPath()%>/resources/css/bootstrapValidator.min.css" rel="stylesheet"/>
   
-  
-  
-
   <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -38,7 +35,33 @@
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
   <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/favicon.ico">
 </head>
+<style type="text/css">
+    .modal-content iframe{
+        margin: 0 auto;
+        display: block;
+    }
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+    /* Get iframe src attribute value i.e. YouTube video url
+    and store it in a variable */
+    var url = $("#cartoonVideo").attr('src');
+    
+    /* Assign empty url value to the iframe src attribute when
+    modal hide, which stop the video playing */
+    $("#myModal").on('hide.bs.modal', function(){
+        $("#cartoonVideo").attr('src', '');
+    });
+    
+    /* Assign the initially stored url back to the iframe src
+    attribute when modal is displayed again */
+    $("#myModal").on('show.bs.modal', function(){
+        $("#cartoonVideo").attr('src', url);
+    });
+});
+</script>
 <body>
+
 	 <!--.preloader-->
   <!-- <div class="preloader"> <i class="fa fa-circle-o-notch fa-spin"></i></div> -->
   <!--/.preloader-->
@@ -84,7 +107,7 @@
             <span class="icon-bar"></span> 
           </button>
           <a class="navbar-brand" href="index">
-            <h1><img class="img-responsive" src="<%=request.getContextPath()%>/resources/images/logo.png" alt="logo"></h1>
+            <h1><img class="img-responsive" height="50px" width="100px" src="<%=request.getContextPath()%>/resources/images/logoDefi.PNG" alt="logo"></h1>
           </a>                    
         </div>
         <div class="collapse navbar-collapse">
@@ -115,7 +138,7 @@
       <div class="heading wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
         <div class="row">
           <div class="text-center col-sm-8 col-sm-offset-2">
-            <h2>NOS JEUX</h2>
+            <h2>NOS JEUX DISPONIBLES</h2>
             <p>Vous pouvez jouer à tous nos jeux soit en solo, ou en challenge avec vos amis, vous pouvez également partager vos résultats avec vos amis</p>
           </div>
         </div> 
@@ -124,56 +147,59 @@
         <div class="row">
           <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
             <div class="service-icon">
-              <i class="fa fa-flask"></i>
+              <i class="fa fa-sort-alpha-asc"></i>
             </div>
             <div class="service-info">
               <h3>ABC SOLO</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+              <p>jouer avec une lettre tirée au sort, en fonction de vos choix parmi les intitulés, vous devez trouvez tous les mots commençant par la lettre</p>
             </div>
           </div>
           <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="450ms">
             <div class="service-icon">
-              <i class="fa fa-umbrella"></i>
+              <i class="fa fa-user-times"></i>
             </div>
             <div class="service-info">
               <h3>Pendu Dico SOLO</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+              <p>Jouez avec plus de 36 000 mots du dictionnaire, trouvez le mot à l'aide d'un indice: une lettre tiréé au sort qui vous ai dévoilée</p>
             </div>
           </div>
           <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="550ms">
             <div class="service-icon">
-              <i class="fa fa-cloud"></i>
+              <i class="fa fa-cubes"></i>
             </div>
             <div class="service-info">
               <h3>Pendu Sujets SOLO</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+              <p>Vous avez aimé le DicoSolo !!! Vous allez adorez le SujetsSolo car c'est tout simplement ce dernier mais avec des sujets que vous aurez choisit</p>
             </div>
           </div>
           <div class="col-sm-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="650ms">
             <div class="service-icon">
-              <i class="fa fa-coffee"></i>
+              <i class="fa fa-users"></i>
+              <i class="fa fa-sort-alpha-asc"></i>
             </div>
             <div class="service-info">
               <h3>ABC CHALLENGE</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+              <p>Ce jeux avec le même principe que celui du ABC-SOLO, mais contre un de vos amis, vous jouez avec les même intitulés et les mêmes mots que lui et ... PARTAGEZ vos résultats</p>
             </div>
           </div>
           <div class="col-sm-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="750ms">
             <div class="service-icon">
-              <i class="fa fa-bitbucket"></i>
+              <i class="fa fa-users"></i>
+              <i class="fa fa-user-times"></i>
             </div>
             <div class="service-info">
               <h3>PENDU DICO CHALLENGE</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+              <p>Même principe que celui du PENDU-DICO-SOLO, mais contre un de vos amis, vous jouez avec le même mot que lui et ... PARTAGEZ vos résultats</p>
             </div>
           </div>
           <div class="col-sm-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="850ms">
             <div class="service-icon">
-              <i class="fa fa-gift"></i>
+              <!-- <i class="fa fa-users"></i> -->
+              <i class="fa fa-cubes"></i>
             </div>
             <div class="service-info">
               <h3>PENDU SUJETS CHALLENGE</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+              <p>Le principe de base de ce jeu est le même que celui du PENDU-SUJETS-SOLO, mais contre un de vos amis, vous jouez avec les même intitulés et les mêmes mots que lui et ... PARTAGEZ vos résultats</p>
             </div>
           </div>
         </div>
@@ -222,16 +248,38 @@
       </div>
     </div>
   </section><!--/#about-us-->
+  
 
   <section id="portfolio">
     <div class="container">
       <div class="row">
         <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
           <h2>Comment ça marche</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam</p>
+          <p>Le fonctionnement du site est simple, l'objetif étant s'amuser tout en apprenant, vous pouvez jouer à tous les jeux soit seul ou avec des amis </p>
         </div>
       </div> 
     </div>
+    <!-- -----------------------------------pour la vidéo du fonctionnement en pup up---------------------------------------------- -->
+          	<div class="bs-example" style="margin: 0 auto; width: 200px;">
+			    <!-- Button HTML (to Trigger Modal) -->
+			    <a href="#myModal" class="btn btn-lg btn-primary"  data-toggle="modal">Voir la video</a>
+			    
+			    <!-- Modal HTML -->
+			    <div id="myModal" class="modal fade">
+			        <div class="modal-dialog">
+			            <div class="modal-content">
+			                <div class="modal-header">
+			                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			                    <h4 class="modal-title">fonctionnement du Site</h4>
+			                </div>
+			                <div class="modal-body">
+			                    <iframe id="cartoonVideo" width="560" height="315" src="//www.youtube.com/embed/YE7VzlLtp-4" frameborder="0" allowfullscreen></iframe>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			</div><br><br>
+          <!-- ----------------------------------------------fin pour la vidéo------------------------------------------------------------ -->
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3">
@@ -247,8 +295,10 @@
                     <p>Solo, Challenge</p>
                   </div>
                   <div class="folio-overview">
-                    <span class="folio-link"><a class="folio-read-more" href="#" data-single_url="portfolio-single.html" ><i class="fa fa-link"></i></a></span>
-                    <span class="folio-expand"><a href="<%=request.getContextPath()%>/resources/images/portfolio/portfolio-details.jpg" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                    <!-- <span class="folio-link"><a class="folio-read-more" href="#" data-single_url="portfolio-single.html" ><i class="fa fa-link"></i></a></span> -->
+                    <span class="folio-expand"><a href="<%=request.getContextPath()%>/resources/images/portfolio/abc-solo.PNG" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                    <span class="folio-expand"><a href="<%=request.getContextPath()%>/resources/images/portfolio/abc-challenge.PNG" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                    <span class="folio-expand"><a href="<%=request.getContextPath()%>/resources/images/portfolio/abc-solo-jeu.PNG" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
                   </div>
                 </div>
               </div>
@@ -268,8 +318,10 @@
                     <p>Solo, Challenge</p>
                   </div>
                   <div class="folio-overview">
-                    <span class="folio-link"><a class="folio-read-more" href="#" data-single_url="portfolio-single.html" ><i class="fa fa-link"></i></a></span>
-                    <span class="folio-expand"><a href="<%=request.getContextPath()%>/resources/images/portfolio/portfolio-details.jpg" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                    <!-- <span class="folio-link"><a class="folio-read-more" href="#" data-single_url="portfolio-single.html" ><i class="fa fa-link"></i></a></span> -->
+                    <span class="folio-expand"><a href="<%=request.getContextPath()%>/resources/images/portfolio/pendu-dico-solo.PNG" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                    <span class="folio-expand"><a href="<%=request.getContextPath()%>/resources/images/portfolio/pendu-dico-challenge.PNG" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                    <span class="folio-expand"><a href="<%=request.getContextPath()%>/resources/images/portfolio/pendu-solo-dico-details.PNG" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
                   </div>
                 </div>
               </div>
@@ -289,8 +341,10 @@
                     <p>Solo, Challenge</p>
                   </div>
                   <div class="folio-overview">
-                    <span class="folio-link"><a class="folio-read-more" href="#" data-single_url="portfolio-single.html" ><i class="fa fa-link"></i></a></span>
-                    <span class="folio-expand"><a href="<%=request.getContextPath()%>/resources/images/portfolio/portfolio-details.jpg" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                    <!-- <span class="folio-link"><a class="folio-read-more" href="#" data-single_url="portfolio-single.html" ><i class="fa fa-link"></i></a></span> -->
+                    <span class="folio-expand"><a href="<%=request.getContextPath()%>/resources/images/portfolio/pendu-sujet-solo-jeu.PNG" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                    <span class="folio-expand"><a href="<%=request.getContextPath()%>/resources/images/portfolio/pendu-sujets-solo.PNG" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                    <span class="folio-expand"><a href="<%=request.getContextPath()%>/resources/images/portfolio/pendu-sujets-challenge-details.PNG" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
                   </div>
                 </div>
               </div>
@@ -307,11 +361,12 @@
                 <div class="overlay-text">
                   <div class="folio-info">
                     <h3>Le Site</h3>
-                    <p>Fonctionalités globales</p>
+                    <p>Autres Fonctionalités</p>
                   </div>
                   <div class="folio-overview">
-                    <span class="folio-link"><a class="folio-read-more" href="#" data-single_url="portfolio-single.html" ><i class="fa fa-link"></i></a></span>
-                    <span class="folio-expand"><a href="<%=request.getContextPath()%>/resources/images/portfolio/portfolio-details.jpg" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                    <span class="folio-expand"><a href="<%=request.getContextPath()%>/resources/images/portfolio/user-home.PNG" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                    <span class="folio-expand"><a href="<%=request.getContextPath()%>/resources/images/portfolio/mes-amis.PNG" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                    <span class="folio-link"><a class="folio-read-more" href="#" data-single_url="portfolio-single.html" id="dialog" ><i class="fa fa-link"></i></a></span>
                   </div>
                 </div>
               </div>
@@ -509,12 +564,6 @@
     </div>
   </section> --%> <!--/#team-->
 
-
-  
-
-  
-
-
   <section id="contact">
     <div id="google-map" class="wow fadeIn" data-latitude="47.38094210000001" data-longitude="0.6992113000000018" data-wow-duration="1000ms" data-wow-delay="400ms"></div>
     <div id="contact-us" class="parallax">
@@ -572,7 +621,7 @@
     <div class="footer-top wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
       <div class="container text-center">
         <div class="footer-logo">
-          <a href="index"><img class="img-responsive" src="<%=request.getContextPath()%>/resources/images/logo.png" alt=""></a>
+          <a href="index"><img class="img-responsive" height="50px" width="100px" src="<%=request.getContextPath()%>/resources/images/logoDefi.PNG" alt="logo"></a>
         </div>
         <div class="social-icons">
           <ul>
@@ -593,7 +642,7 @@
             <p>&copy; 2017 Défi</p>
           </div>
           <div class="col-sm-6">
-            <p class="pull-right">Crafted by <a href="tech-clever.com">tech-clever</a></p>
+            <p class="pull-right">Powered by <a href="tech-clever.com">tech-clever</a></p>
           </div>
         </div>
       </div>

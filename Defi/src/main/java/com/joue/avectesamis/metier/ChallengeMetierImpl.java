@@ -531,6 +531,18 @@ public class ChallengeMetierImpl implements ChallengeMetier{
 		dao.changerMdp(email, string);
 	}
 
+	@Override
+	public void annulerEnvoiDemandeAmi(Long id, Long idAmi) {
+		dao.annulerEnvoiDemandeAmi(id, idAmi);
+		
+	}
+
+	@Override
+	public void refuserDemandeAmi(Long id, Long idAmi) {
+		dao.refuserDemandeAmi(id, idAmi);
+		
+	}
+
 	
 	
 
