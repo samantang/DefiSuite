@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>DEFI - Accueil | DEFI</title>
+  <title>DEFI - Accueil</title>
   
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -33,7 +33,7 @@
   <![endif]-->
   
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
-  <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/favicon.ico">
+  <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/logoDefi.PNG">
 </head>
 <style type="text/css">
     .modal-content iframe{
@@ -285,7 +285,7 @@ $(document).ready(function(){
         <div class="col-sm-3">
           <div class="folio-item wow fadeInRightBig" data-wow-duration="1000ms" data-wow-delay="300ms">
             <div class="folio-image">
-              <img class="img-responsive" src="<%=request.getContextPath()%>/resources/images/portfolio/1.jpg" alt="">
+              <img class="img-responsive" src="<%=request.getContextPath()%>/resources/images/portfolio/abc-solo-challenge.png" alt="">
             </div>
             <div class="overlay">
               <div class="overlay-content">
@@ -308,7 +308,7 @@ $(document).ready(function(){
         <div class="col-sm-3">
           <div class="folio-item wow fadeInLeftBig" data-wow-duration="1000ms" data-wow-delay="400ms">
             <div class="folio-image">
-              <img class="img-responsive" src="<%=request.getContextPath()%>/resources/images/portfolio/2.jpg" alt="">
+              <img class="img-responsive" src="<%=request.getContextPath()%>/resources/images/portfolio/pendu-dico-solo-challenge.png" alt="">
             </div>
             <div class="overlay">
               <div class="overlay-content">
@@ -331,7 +331,7 @@ $(document).ready(function(){
         <div class="col-sm-3">
           <div class="folio-item wow fadeInRightBig" data-wow-duration="1000ms" data-wow-delay="500ms">
             <div class="folio-image">
-              <img class="img-responsive" src="<%=request.getContextPath()%>/resources/images/portfolio/3.jpg" alt="">
+              <img class="img-responsive" src="<%=request.getContextPath()%>/resources/images/portfolio/pendu-sujets-solo-challenge.png" alt="">
             </div>
             <div class="overlay">
               <div class="overlay-content">
@@ -354,7 +354,7 @@ $(document).ready(function(){
         <div class="col-sm-3">
           <div class="folio-item wow fadeInLeftBig" data-wow-duration="1000ms" data-wow-delay="600ms">
             <div class="folio-image">
-              <img class="img-responsive" src="<%=request.getContextPath()%>/resources/images/portfolio/4.jpg" alt="">
+              <img class="img-responsive" src="<%=request.getContextPath()%>/resources/images/portfolio/force-tranquille.png" alt="">
             </div>
             <div class="overlay">
               <div class="overlay-content">
