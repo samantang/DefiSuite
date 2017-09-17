@@ -1,4 +1,4 @@
-package com.joue.avectesamis;
+package com.defi;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,14 +26,14 @@ public class DefiApplication implements CommandLineRunner{
 	
 //	@Autowired
 //	private ChallengeMetier metier;
-	@Autowired
-	private FriendRepository friendRepository;
-	@Autowired
-	private PenduDao penduDao;
-	@Autowired
-	private ChallengeDao challengeDao;
-	@Autowired
-	private ChallengeMetier metier;
+//	@Autowired
+//	private FriendRepository friendRepository;
+//	@Autowired
+//	private PenduDao penduDao;
+//	@Autowired
+//	private ChallengeDao challengeDao;
+//	@Autowired
+//	private ChallengeMetier metier;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(DefiApplication.class, args);
